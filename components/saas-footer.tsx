@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
+import { LuGithub } from "react-icons/lu";
 
 const changelog = [
   {
@@ -77,8 +78,8 @@ const footerLinks = {
 };
 
 const socialLinks = [
-  { icon: Tiktok, href: "#", label: "Tiktok" },
-  { icon: Github, href: "#", label: "GitHub" },
+  // { icon: Tiktok, href: "#", label: "Tiktok" },
+  { icon: LuGithub, href: "#", label: "GitHub" },
   { icon: Mail, href: "#", label: "Email" },
 ];
 

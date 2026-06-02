@@ -1,13 +1,13 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { Sparkles, Heart, Target, Users, Zap, Globe, ArrowRight } from "lucide-react";
+import { Heart, Target, Users, Zap, Globe, ArrowRight, Briefcase } from "lucide-react";
 import { PageHeader } from "@/components/page-header";
 import { SaaSFooter } from "@/components/saas-footer";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { LuGithub } from "react-icons/lu";
 
 export const metadata: Metadata = {
   title: "About Us - Prompt Library",
@@ -39,33 +39,39 @@ const values = [
 
 const team = [
   {
-    name: "Alex Chen",
+    name: "Kyle csdevfe",
     role: "Founder & CEO",
-    bio: "Former engineer at Vercel. Passionate about developer tools and AI.",
-    avatar: "/avatars/alex.jpg",
-    initials: "AC",
+    bio: "Software Developer turning your ideas or designs into reality. Passionate about AI and building tools that empower developers.",
+    avatar: "",
+    initials: "KYP",
+    link: {
+      github: "https://github.com/kyl67899",
+      // facebook: "",
+      // linkedin: "",
+      portfolio: "https://kylepprofile.dev"
+    }
   },
-  {
-    name: "Sarah Kim",
-    role: "Head of Design",
-    bio: "Design systems expert. Previously at Figma and Stripe.",
-    avatar: "/avatars/sarah.jpg",
-    initials: "SK",
-  },
-  {
-    name: "Marcus Johnson",
-    role: "Lead Engineer",
-    bio: "Full-stack developer. Open source contributor and Next.js enthusiast.",
-    avatar: "/avatars/marcus.jpg",
-    initials: "MJ",
-  },
-  {
-    name: "Emily Torres",
-    role: "Community Manager",
-    bio: "Building bridges between developers. Former DevRel at GitHub.",
-    avatar: "/avatars/emily.jpg",
-    initials: "ET",
-  },
+  // {
+  //   name: "Sarah Kim",
+  //   role: "Head of Design",
+  //   bio: "Design systems expert. Previously at Figma and Stripe.",
+  //   avatar: "/avatars/sarah.jpg",
+  //   initials: "SK",
+  // },
+  // {
+  //   name: "Marcus Johnson",
+  //   role: "Lead Engineer",
+  //   bio: "Full-stack developer. Open source contributor and Next.js enthusiast.",
+  //   avatar: "/avatars/marcus.jpg",
+  //   initials: "MJ",
+  // },
+  // {
+  //   name: "Emily Torres",
+  //   role: "Community Manager",
+  //   bio: "Building bridges between developers. Former DevRel at GitHub.",
+  //   avatar: "/avatars/emily.jpg",
+  //   initials: "ET",
+  // },
 ];
 
 const stats = [
@@ -79,7 +85,7 @@ export default function AboutPage() {
   return (
     <div className="min-h-screen bg-background">
       <PageHeader />
-      
+
       <main className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         {/* Hero Section */}
         <div className="mb-16 text-center">
@@ -90,7 +96,7 @@ export default function AboutPage() {
             Making Vibe Coding Accessible
           </h1>
           <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
-            We&apos;re on a mission to help every developer build beautiful interfaces 
+            We&apos;re on a mission to help every developer build beautiful interfaces
             using AI-powered tools. No design degree required.
           </p>
         </div>
@@ -114,25 +120,25 @@ export default function AboutPage() {
               <h2 className="mb-6 text-2xl font-bold text-foreground">Our Story</h2>
               <div className="space-y-4 text-muted-foreground">
                 <p>
-                  Prompt Library started in early 2026 when our founder, Alex, noticed a problem: 
-                  AI coding tools were incredibly powerful, but developers were spending more time 
+                  Prompt Library started in early 2026 when our founder, Alex, noticed a problem:
+                  AI coding tools were incredibly powerful, but developers were spending more time
                   crafting the perfect prompt than actually building.
                 </p>
                 <p>
-                  What if there was a library of battle-tested prompts that developers could 
-                  just copy and use? What if each prompt came with visual previews so you knew 
-                  exactly what you&apos;d get? What if sharing prompts to your favorite IDE was 
+                  What if there was a library of battle-tested prompts that developers could
+                  just copy and use? What if each prompt came with visual previews so you knew
+                  exactly what you&apos;d get? What if sharing prompts to your favorite IDE was
                   just one click away?
                 </p>
                 <p>
-                  That&apos;s when Prompt Library was born. We started with 12 categories and 20 
-                  prompts, focusing on the UI components developers need most. Today, thousands 
-                  of developers use Prompt Library every day to build everything from landing 
+                  That&apos;s when Prompt Library was born. We started with 12 categories and 20
+                  prompts, focusing on the UI components developers need most. Today, thousands
+                  of developers use Prompt Library every day to build everything from landing
                   pages to complex dashboards.
                 </p>
                 <p>
-                  We&apos;re just getting started. Our vision is to become the definitive resource 
-                  for AI-assisted UI development, constantly growing our library and supporting 
+                  We&apos;re just getting started. Our vision is to become the definitive resource
+                  for AI-assisted UI development, constantly growing our library and supporting
                   every major AI coding tool.
                 </p>
               </div>
@@ -174,6 +180,12 @@ export default function AboutPage() {
                   <h3 className="font-semibold text-foreground">{member.name}</h3>
                   <p className="mb-2 text-sm text-accent">{member.role}</p>
                   <p className="text-sm text-muted-foreground">{member.bio}</p>
+                  <Link href={member.link.github} className="mt-4 inline-flex items-center text-sm text-primary hover:underline">
+                    <LuGithub className="ml-1 size-5" />
+                  </Link>
+                  <Link href={member.link.portfolio} className="mt-4 inline-flex items-center text-sm text-primary hover:underline">
+                    <Briefcase className="ml-1 size-5" />
+                  </Link>
                 </CardContent>
               </Card>
             ))}
