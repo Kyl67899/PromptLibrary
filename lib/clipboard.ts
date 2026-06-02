@@ -10,6 +10,7 @@ export async function copyToClipboard(text: string): Promise<boolean> {
       return true;
     } catch {
       // Fall through to fallback method
+      
     }
   }
 
