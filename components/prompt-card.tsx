@@ -40,7 +40,7 @@ export function PromptCard({ prompt }: PromptCardProps) {
   return (
     <Card className="group overflow-hidden bg-card border-border hover:border-accent/50 transition-colors">
       {/* Image Container with Lazy Loading - showcases UI component preview */}
-      <div className="relative aspect-[4/3] overflow-hidden bg-secondary">
+      <div className="relative aspect-4/3 overflow-hidden bg-secondary">
         <div
           className={cn(
             "absolute inset-0 bg-secondary animate-pulse",
@@ -59,7 +59,7 @@ export function PromptCard({ prompt }: PromptCardProps) {
           onLoad={() => setImageLoaded(true)}
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+        <div className="absolute inset-0 bg-linear-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
         
         {/* Quick Copy Button on Hover */}
         <Button

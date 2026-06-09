@@ -18,6 +18,14 @@ import { LuGithub } from "react-icons/lu";
 
 const changelog = [
   {
+    version: "1.4.0",
+    date: "June 6, 2026",
+    type: "improvement" as const,
+    title: "Fixed bugs and performance optimizations",
+    description:
+        "Added a contact and suggestion form with spam and rate limit protection using Resend email service. Resolved several minor bugs and improved overall performance and stability of the application.",
+  },
+  {
     version: "1.3.0",
     date: "May 31, 2026",
     type: "feature" as const,
@@ -55,14 +63,14 @@ const footerLinks = {
   product: [
     { label: "Features", href: "/features" },
     { label: "Pricing", href: "/pricing" },
-    { label: "Changelog", href: "#changelog" },
+    { label: "Changelog", href: "/changelog" },
     { label: "Documentation", href: "/docs" },
   ],
   company: [
     { label: "About", href: "/about" },
     { label: "Blog", href: "#" },
     { label: "Careers", href: "#" },
-    { label: "Contact", href: "/help" },
+    { label: "Contact", href: "/contact" },
   ],
   resources: [
     { label: "Community", href: "/community" },
@@ -79,8 +87,8 @@ const footerLinks = {
 
 const socialLinks = [
   // { icon: Tiktok, href: "#", label: "Tiktok" },
-  { icon: LuGithub, href: "#", label: "GitHub" },
-  { icon: Mail, href: "#", label: "Email" },
+  { icon: LuGithub, href: "https://github.com/Kyl67899/PromptLibrary", label: "GitHub" },
+  { icon: Mail, href: "mailto:shuttle876@gmail.com", label: "Email" },
 ];
 
 function ChangelogDialog() {
@@ -91,7 +99,7 @@ function ChangelogDialog() {
           <Sparkles className="size-4" />
           <span>Changelog</span>
           <Badge variant="secondary" className="ml-1">
-            v1.3.0
+            v1.4.0
           </Badge>
         </Button>
       </DialogTrigger>
