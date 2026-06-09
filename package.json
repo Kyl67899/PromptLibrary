@@ -7,6 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
+    "security:audit": "npm audit --json",
+    "dependency:check": "npm outdated --json || true",
     "updates": "npm i -g npm-check-updates && ncu -u && npm i && npm audit fix --force && npm install --force",
     "audit": "npm audit fix --force",
     "clean": "rm -rf node_modules && rm package-lock.json && rm -rf .next && npm cache clear --force"

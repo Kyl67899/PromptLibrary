@@ -1,0 +1,116 @@
+name: CI & Security Audit
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+  schedule:
+    - cron: '0 3 * * 1' # Every Monday at 3 AM
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    env:
+      DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+      SMTP_HOST: ${{ secrets.SMTP_HOST }}
+      SMTP_PORT: ${{ secrets.SMTP_PORT }}
+      SMTP_USER: ${{ secrets.SMTP_USER }}
+      SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+      EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
+      EMAIL_TO: ${{ secrets.EMAIL_TO }}
+      TWILIO_ACCOUNT_SID: ${{ secrets.TWILIO_ACCOUNT_SID }}
+      TWILIO_AUTH_TOKEN: ${{ secrets.TWILIO_AUTH_TOKEN }}
+      TWILIO_FROM: ${{ secrets.TWILIO_FROM }}
+      SMS_TO: ${{ secrets.SMS_TO }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run ESLint
+        run: npm run lint
+
+      - name: Run npm audit
+        id: audit
+        run: |
+          npm audit --json > audit.json || true
+          vulnerabilities=$(jq '[.metadata.vulnerabilities.critical, .metadata.vulnerabilities.high, .metadata.vulnerabilities.moderate, .metadata.vulnerabilities.low] | map(select(.!=null)) | add // 0' audit.json)
+          summary=$(jq -r '"Critical: \(.metadata.vulnerabilities.critical), High: \(.metadata.vulnerabilities.high), Moderate: \(.metadata.vulnerabilities.moderate), Low: \(.metadata.vulnerabilities.low)"' audit.json)
+          echo "vulnerabilities=$vulnerabilities" >> $GITHUB_OUTPUT
+          echo "vulnerability_summary=$summary" >> $GITHUB_OUTPUT
+          echo "audit_report<<EOF" >> $GITHUB_OUTPUT
+          cat audit.json
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Set notification payload
+        if: steps.audit.outputs.vulnerabilities != '0'
+        run: |
+          echo "AUDIT_MESSAGE=Vulnerability scan completed with ${{ steps.audit.outputs.vulnerabilities }} vulnerabilities. Summary: ${{ steps.audit.outputs.vulnerability_summary }}" >> $GITHUB_ENV
+          echo "AUDIT_URL=$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" >> $GITHUB_ENV
+
+      - name: Notify Discord
+        if: steps.audit.outputs.vulnerabilities != '0' && env.DISCORD_WEBHOOK_URL != ''
+        run: |
+          payload=$(jq -n --arg content "[Alert] GitHub CI detected ${{ steps.audit.outputs.vulnerabilities }} vulnerabilities in PromptLibrary. $AUDIT_MESSAGE. See $AUDIT_URL" '{content: $content}')
+          curl -H "Content-Type: application/json" -d "$payload" "$DISCORD_WEBHOOK_URL"
+
+      - name: Send email notification
+        if: steps.audit.outputs.vulnerabilities != '0' && env.SMTP_HOST != '' && env.EMAIL_TO != '' && env.EMAIL_FROM != '' && env.SMTP_USER != '' && env.SMTP_PASSWORD != ''
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Deliver email alert
+        if: steps.audit.outputs.vulnerabilities != '0' && env.SMTP_HOST != '' && env.EMAIL_TO != '' && env.EMAIL_FROM != '' && env.SMTP_USER != '' && env.SMTP_PASSWORD != ''
+        run: |
+          python - <<'PY'
+          import os
+          import smtplib
+          from email.message import EmailMessage
+
+          host = os.environ['SMTP_HOST']
+          port = int(os.environ.get('SMTP_PORT', '587'))
+          user = os.environ['SMTP_USER']
+          password = os.environ['SMTP_PASSWORD']
+          sender = os.environ['EMAIL_FROM']
+          recipient = os.environ['EMAIL_TO']
+          subject = 'PromptLibrary Vulnerability Alert'
+          body = f"GitHub CI detected {os.environ['GITHUB_ACTION'] if 'GITHUB_ACTION' in os.environ else 'a job'} vulnerabilities in PromptLibrary.\n\n{os.environ.get('AUDIT_MESSAGE')}\n\nRun details: {os.environ.get('AUDIT_URL')}"
+
+          message = EmailMessage()
+          message['Subject'] = subject
+          message['From'] = sender
+          message['To'] = recipient
+          message.set_content(body)
+
+          with smtplib.SMTP(host, port, timeout=30) as server:
+              server.starttls()
+              server.login(user, password)
+              server.send_message(message)
+          print('Email notification sent.')
+          PY
+
+      - name: Send SMS notification
+        if: steps.audit.outputs.vulnerabilities != '0' && env.TWILIO_ACCOUNT_SID != '' && env.TWILIO_AUTH_TOKEN != '' && env.TWILIO_FROM != '' && env.SMS_TO != ''
+        run: |
+          body="GitHub CI found ${{ steps.audit.outputs.vulnerabilities }} vulnerabilities in PromptLibrary. $AUDIT_MESSAGE"
+          curl -X POST "https://api.twilio.com/2010-04-01/Accounts/$TWILIO_ACCOUNT_SID/Messages.json" \
+            -u "$TWILIO_ACCOUNT_SID:$TWILIO_AUTH_TOKEN" \
+            --data-urlencode "From=$TWILIO_FROM" \
+            --data-urlencode "To=$SMS_TO" \
+            --data-urlencode "Body=$body"
+
+      - name: Fail if vulnerabilities exist
+        if: steps.audit.outputs.vulnerabilities != '0'
+        run: |
+          echo "Found ${{ steps.audit.outputs.vulnerabilities }} vulnerabilities. Failing CI." 
+          exit 1

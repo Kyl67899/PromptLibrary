@@ -1,0 +1,101 @@
+name: Monthly Dependency Check
+
+on:
+  schedule:
+    - cron: '0 5 1 * *'
+  workflow_dispatch:
+
+jobs:
+  outdated-dependencies:
+    runs-on: ubuntu-latest
+    env:
+      DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+      SMTP_HOST: ${{ secrets.SMTP_HOST }}
+      SMTP_PORT: ${{ secrets.SMTP_PORT }}
+      SMTP_USER: ${{ secrets.SMTP_USER }}
+      SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+      EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
+      EMAIL_TO: ${{ secrets.EMAIL_TO }}
+      TWILIO_ACCOUNT_SID: ${{ secrets.TWILIO_ACCOUNT_SID }}
+      TWILIO_AUTH_TOKEN: ${{ secrets.TWILIO_AUTH_TOKEN }}
+      TWILIO_FROM: ${{ secrets.TWILIO_FROM }}
+      SMS_TO: ${{ secrets.SMS_TO }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check outdated dependencies
+        id: outdated
+        run: |
+          npm outdated --json > outdated.json || true
+          count=$(jq 'length' outdated.json)
+          summary=$(jq -r 'to_entries | map("\(.key): current=\(.value.current), latest=\(.value.latest)") | join("\n")' outdated.json)
+          echo "outdated_count=$count" >> $GITHUB_OUTPUT
+          echo "outdated_summary=$summary" >> $GITHUB_OUTPUT
+
+      - name: Set notification payload
+        if: steps.outdated.outputs.outdated_count != '0'
+        run: |
+          echo "OUTDATED_COUNT=${{ steps.outdated.outputs.outdated_count }}" >> $GITHUB_ENV
+          echo "OUTDATED_MESSAGE=Found ${{ steps.outdated.outputs.outdated_count }} outdated dependencies.\n${{ steps.outdated.outputs.outdated_summary }}" >> $GITHUB_ENV
+          echo "CHECK_URL=$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" >> $GITHUB_ENV
+
+      - name: Notify Discord about outdated packages
+        if: steps.outdated.outputs.outdated_count != '0' && env.DISCORD_WEBHOOK_URL != ''
+        run: |
+          payload=$(jq -n --arg content "[Info] Monthly dependency check found ${{ steps.outdated.outputs.outdated_count }} outdated packages in PromptLibrary. See $CHECK_URL" '{content: $content}')
+          curl -H "Content-Type: application/json" -d "$payload" "$DISCORD_WEBHOOK_URL"
+
+      - name: Send email for outdated packages
+        if: steps.outdated.outputs.outdated_count != '0' && env.SMTP_HOST != '' && env.EMAIL_TO != '' && env.EMAIL_FROM != '' && env.SMTP_USER != '' && env.SMTP_PASSWORD != ''
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Deliver outdated dependency email
+        if: steps.outdated.outputs.outdated_count != '0' && env.SMTP_HOST != '' && env.EMAIL_TO != '' && env.EMAIL_FROM != '' && env.SMTP_USER != '' && env.SMTP_PASSWORD != ''
+        run: |
+          python - <<'PY'
+          import os
+          import smtplib
+          from email.message import EmailMessage
+
+          host = os.environ['SMTP_HOST']
+          port = int(os.environ.get('SMTP_PORT', '587'))
+          user = os.environ['SMTP_USER']
+          password = os.environ['SMTP_PASSWORD']
+          sender = os.environ['EMAIL_FROM']
+          recipient = os.environ['EMAIL_TO']
+          subject = 'PromptLibrary Monthly Dependency Report'
+          body = f"Monthly dependency check found {os.environ.get('OUTDATED_COUNT', '0')} outdated packages.\n\n{os.environ.get('OUTDATED_MESSAGE')}\n\nRun details: {os.environ.get('CHECK_URL')}"
+
+          message = EmailMessage()
+          message['Subject'] = subject
+          message['From'] = sender
+          message['To'] = recipient
+          message.set_content(body)
+
+          with smtplib.SMTP(host, port, timeout=30) as server:
+              server.starttls()
+              server.login(user, password)
+              server.send_message(message)
+          print('Outdated dependency email sent.')
+          PY
+
+      - name: Send SMS for outdated packages
+        if: steps.outdated.outputs.outdated_count != '0' && env.TWILIO_ACCOUNT_SID != '' && env.TWILIO_AUTH_TOKEN != '' && env.TWILIO_FROM != '' && env.SMS_TO != ''
+        run: |
+          body="Monthly dependency check found ${{ steps.outdated.outputs.outdated_count }} outdated packages in PromptLibrary."
+          curl -X POST "https://api.twilio.com/2010-04-01/Accounts/$TWILIO_ACCOUNT_SID/Messages.json" \
+            -u "$TWILIO_ACCOUNT_SID:$TWILIO_AUTH_TOKEN" \
+            --data-urlencode "From=$TWILIO_FROM" \
+            --data-urlencode "To=$SMS_TO" \
+            --data-urlencode "Body=$body"
