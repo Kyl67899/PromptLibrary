@@ -192,7 +192,7 @@ export default function FeaturesPage() {
 
         {/* CTA Section */}
         <section className="text-center">
-          <Card className="border-0 bg-gradient-to-r from-secondary to-secondary/50">
+          <Card className="border-0 bg-linear-to-r from-secondary to-secondary/50">
             <CardContent className="py-12">
               <h2 className="mb-4 text-2xl font-bold text-foreground">
                 Ready to Start Building?
