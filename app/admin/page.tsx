@@ -63,14 +63,14 @@ interface Subscriber {
   source: string;
 }
 
-interface SubscriberStats {
+export interface SubscriberStats {
   total: number;
   active: number;
   unsubscribed: number;
   recentSignups: number;
 }
 
-interface Campaign {
+export interface Campaign {
   id: string;
   subject: string;
   content: string;
@@ -84,7 +84,7 @@ interface Campaign {
   updatedAt: string;
 }
 
-interface CampaignStats {
+export interface CampaignStats {
   total: number;
   sent: number;
   drafts: number;
