@@ -68,7 +68,7 @@ We welcome contributions! Here's how you can help:
 
 - Ensure all prompts libraries data comes from official sources or own ideas
 - Maintain consistent data structure and formatting
-- Update both `db.json` and `data/bike.json` simultaneously
+- Update both `lib/prompts-data.ts` simultaneously
 - Add meaningful commit messages
 - Add meaningful pull requests
 
