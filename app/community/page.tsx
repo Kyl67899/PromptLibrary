@@ -3,25 +3,21 @@
 import { useState } from "react";
 import Link from "next/link";
 import {
-  MessageSquare,
-  Users,
   TrendingUp,
   Lightbulb,
-  Heart,
   MessageCircle,
   Clock,
   ChevronUp,
   Plus,
   Search,
-  Filter,
 } from "lucide-react";
 import { PageHeader } from "@/components/page-header";
 import { SaaSFooter } from "@/components/saas-footer";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
 import {
   Select,

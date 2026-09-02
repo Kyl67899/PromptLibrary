@@ -20,6 +20,8 @@ interface PromptGridProps {
   currentPage: number;
   onPageChange: (page: number) => void;
   itemsPerPage?: number;
+  favorites?: string[];
+  onFavoriteToggle?: (promptId: string) => void;
 }
 
 export function PromptGrid({
@@ -29,6 +31,8 @@ export function PromptGrid({
   currentPage,
   onPageChange,
   itemsPerPage = 9,
+  favorites = [],
+  onFavoriteToggle,
 }: PromptGridProps) {
   const totalPages = Math.ceil(prompts.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
@@ -113,7 +117,12 @@ export function PromptGrid({
     <div className="space-y-8">
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
         {currentPrompts.map((prompt) => (
-          <PromptCard key={prompt.id} prompt={prompt} />
+          <PromptCard 
+            key={prompt.id} 
+            prompt={prompt}
+            isFavorited={favorites.includes(prompt.id)}
+            onFavoriteToggle={onFavoriteToggle}
+          />
         ))}
       </div>
 

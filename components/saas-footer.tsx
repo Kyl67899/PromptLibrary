@@ -79,8 +79,8 @@ const footerLinks = {
 
 const socialLinks = [
   // { icon: Tiktok, href: "#", label: "Tiktok" },
-  { icon: LuGithub, href: "#", label: "GitHub" },
-  { icon: Mail, href: "#", label: "Email" },
+  { icon: LuGithub, href: "https://www.github.com/promptlibrary", label: "GitHub" },
+  { icon: Mail, href: "mailto:shuttle876@gmail.com", label: "Email" },
 ];
 
 function ChangelogDialog() {

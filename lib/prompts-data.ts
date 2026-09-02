@@ -19,6 +19,7 @@ export interface Prompt {
   category: Exclude<Category, "all">;
   prompt: string;
   image: string;
+  tags?: string[];
 }
 
 export const categories: { id: Category; label: string; icon: string }[] = [
@@ -45,6 +46,7 @@ export const prompts: Prompt[] = [
     prompt:
       "Create a modern contact form with name, email, subject, and message fields. Include client-side validation, loading states, and a success message after submission. Use a clean, minimal design with proper spacing.",
     image: "/previews/contact-form.png",
+    tags: ["validation", "form", "contact"],
   },
   {
     id: "2",
@@ -54,6 +56,7 @@ export const prompts: Prompt[] = [
     prompt:
       "Build a newsletter signup form with email input and submit button. Add inline validation for email format, a loading spinner during submission, and animated success feedback.",
     image: "/previews/newsletter-signup.png",
+    tags: ["email", "form", "signup"],
   },
   {
     id: "3",
@@ -63,6 +66,7 @@ export const prompts: Prompt[] = [
     prompt:
       "Create a login form with email and password fields, remember me checkbox, forgot password link, and social login buttons for Google and GitHub. Include proper validation and error handling.",
     image: "/previews/login-form.png",
+    tags: ["authentication", "security", "form"],
   },
   {
     id: "4",
@@ -72,6 +76,7 @@ export const prompts: Prompt[] = [
     prompt:
       "Build a multi-step registration form with account details, profile information, and preferences. Include a progress indicator, back/next buttons, and form validation at each step.",
     image: "/previews/registration-form.png",
+    tags: ["multi-step", "authentication", "form"],
   },
   {
     id: "5",
@@ -81,6 +86,7 @@ export const prompts: Prompt[] = [
     prompt:
       "Create a testimonial section with a grid of cards showing customer quotes, names, titles, company logos, and star ratings. Include hover effects and responsive layout.",
     image: "/previews/testimonial-cards.png",
+    tags: ["testimonials", "reviews", "social-proof"],
   },
   {
     id: "6",
@@ -90,6 +96,7 @@ export const prompts: Prompt[] = [
     prompt:
       "Build a testimonial carousel that auto-rotates through customer reviews. Include navigation dots, prev/next arrows, and smooth transitions. Show customer photo, quote, and attribution.",
     image: "/previews/testimonial-carousel.png",
+    tags: ["carousel", "testimonials", "reviews"],
   },
   {
     id: "7",
@@ -99,6 +106,7 @@ export const prompts: Prompt[] = [
     prompt:
       "Create a sticky navbar that changes background on scroll. Include logo, navigation links, dropdown menus, and a CTA button. Make it fully responsive with a mobile hamburger menu.",
     image: "/previews/sticky-navbar.png",
+    tags: ["navigation", "responsive", "sticky"],
   },
   {
     id: "8",
@@ -108,6 +116,7 @@ export const prompts: Prompt[] = [
     prompt:
       "Build a navbar with mega menu dropdowns that show categorized links, featured content, and images. Include smooth animations and keyboard navigation support.",
     image: "/previews/mega-menu.png",
+    tags: ["navigation", "menu", "dropdown"],
   },
   {
     id: "9",
@@ -117,6 +126,7 @@ export const prompts: Prompt[] = [
     prompt:
       "Create a stats bar showing key metrics like users, downloads, and revenue. Add counting animation that triggers when the section scrolls into view. Use icons and clean typography.",
     image: "/previews/stats-counter.png",
+    tags: ["animation", "statistics", "counter"],
   },
   {
     id: "10",
@@ -126,6 +136,7 @@ export const prompts: Prompt[] = [
     prompt:
       "Build a company metrics section showing growth statistics, user counts, and performance indicators. Include mini charts, percentage changes, and comparison to previous periods.",
     image: "/previews/company-metrics.png",
+    tags: ["dashboard", "statistics", "charts"],
   },
   {
     id: "11",
@@ -135,6 +146,7 @@ export const prompts: Prompt[] = [
     prompt:
       "Create a blog section with cards showing featured image, category tag, title, excerpt, author avatar, and publish date. Include hover effects and responsive grid layout.",
     image: "/previews/blog-cards.png",
+    tags: ["blog", "cards", "grid"],
   },
   {
     id: "12",
@@ -144,6 +156,7 @@ export const prompts: Prompt[] = [
     prompt:
       "Build a blog layout with one large featured article and a sidebar of smaller recent posts. Include category badges, read time estimates, and author information.",
     image: "/previews/featured-article.png",
+    tags: ["blog", "featured", "layout"],
   },
   {
     id: "13",
@@ -153,6 +166,7 @@ export const prompts: Prompt[] = [
     prompt:
       "Create an FAQ section with accordion-style questions that expand to show answers. Include smooth height animations, plus/minus icons, and keyboard accessibility.",
     image: "/previews/accordion-faq.png",
+    tags: ["faq", "accordion", "interactive"],
   },
   {
     id: "14",
@@ -162,6 +176,7 @@ export const prompts: Prompt[] = [
     prompt:
       "Build a two-column FAQ layout with questions grouped by category. Include search functionality, category filtering, and expandable answers.",
     image: "/previews/two-column-faq.png",
+    tags: ["faq", "layout", "search"],
   },
   {
     id: "15",
@@ -171,6 +186,7 @@ export const prompts: Prompt[] = [
     prompt:
       "Create a hero section with a looping background video, overlay gradient, headline, subtext, and dual CTA buttons. Ensure the video is optimized and has a fallback image.",
     image: "/previews/hero-video.png",
+    tags: ["hero", "video", "cta"],
   },
   {
     id: "16",
@@ -180,6 +196,7 @@ export const prompts: Prompt[] = [
     prompt:
       "Build a split-screen hero with compelling copy, CTA buttons, and trust badges on one side, and a product screenshot or illustration on the other. Make it responsive.",
     image: "/previews/split-hero.png",
+    tags: ["hero", "layout", "responsive"],
   },
   {
     id: "17",
@@ -189,6 +206,7 @@ export const prompts: Prompt[] = [
     prompt:
       "Create a pricing section with three tiers (Basic, Pro, Enterprise). Include feature lists with checkmarks, popular plan highlight, monthly/yearly toggle, and CTA buttons.",
     image: "/previews/pricing-cards.png",
+    tags: ["pricing", "plans", "cards"],
   },
   {
     id: "18",
@@ -198,6 +216,7 @@ export const prompts: Prompt[] = [
     prompt:
       "Build a pricing comparison table showing all features across different plans. Include tooltips for feature explanations, sticky headers, and highlighted recommended plan.",
     image: "/previews/pricing-table.png",
+    tags: ["pricing", "comparison", "table"],
   },
   {
     id: "19",
@@ -207,6 +226,7 @@ export const prompts: Prompt[] = [
     prompt:
       "Create a footer with logo, navigation links organized by category, social media icons, and copyright notice. Include newsletter signup and responsive layout.",
     image: "/previews/simple-footer.png",
+    tags: ["footer", "navigation", "social"],
   },
   {
     id: "20",
@@ -216,6 +236,7 @@ export const prompts: Prompt[] = [
     prompt:
       "Build a bento grid layout showcasing product features with varied card sizes. Include icons, titles, descriptions, and subtle hover animations. Make it visually interesting.",
     image: "/previews/bento-grid.png",
+    tags: ["features", "grid", "layout"],
   },
   {
     id: "21",
@@ -225,6 +246,7 @@ export const prompts: Prompt[] = [
     prompt:
       "Create a features section with a grid of cards, each containing an icon, title, and description. Include hover effects and ensure the layout works on all screen sizes.",
     image: "/previews/feature-list.png",
+    tags: ["features", "icons", "list"],
   },
   {
     id: "22",
@@ -234,6 +256,7 @@ export const prompts: Prompt[] = [
     prompt:
       "Create an OTP verification form with individual input boxes for each digit. Include auto-focus to next input, paste support, resend code timer, and validation feedback.",
     image: "/previews/otp-verification.png",
+    tags: ["otp", "authentication", "security"],
   },
   {
     id: "23",
@@ -243,6 +266,7 @@ export const prompts: Prompt[] = [
     prompt:
       "Build a password reset flow with email input step and new password step. Include password strength indicator, confirmation field, and success message.",
     image: "/previews/password-reset.png",
+    tags: ["password", "authentication", "flow"],
   },
   {
     id: "24",
@@ -252,5 +276,6 @@ export const prompts: Prompt[] = [
     prompt:
       "Create a survey form with multiple question types (radio, checkbox, scale, text). Include progress indicator, skip option, and review page before submission.",
     image: "/previews/survey-form.png",
+    tags: ["survey", "form", "multi-question"],
   },
 ];
