@@ -7,12 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
-    "security:audit": "npm audit --json",
-    "dependency:check": "npm outdated --json || true",
-    "updates": "npx npm-check-updates -u && npm install && npm audit fix --force",
-    "clean": "npx rimraf node_modules .next package-lock.json",
-    "reinstall": "npm run clean && npm cache clean --force && npm install",
-    "audit": "npm audit fix --force"
+    "updates": "npm i -g npm-check-updates && ncu -u && npm i && npm audit fix --force",
+    "audit": "npm audit fix --force",
+    "clean": "rimraf node_modules package-lock.json .next && npm cache clean --force"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.4.0",

@@ -19,11 +19,18 @@ import { LuGithub } from "react-icons/lu";
 const changelog = [
   {
     version: "1.4.0",
-    date: "June 6, 2026",
-    type: "improvement" as const,
-    title: "Fixed bugs and performance optimizations",
-    description:
-        "Added a contact and suggestion form with spam and rate limit protection using Resend email service. Resolved several minor bugs and improved overall performance and stability of the application.",
+    date: "Sept. 1, 2026",
+    type: "feature" as const,
+    title: "Enhanced the Prompt Library Footer and Home Page",
+    description: [
+      "Added links to the footer for the Prompt Library GitHub repository and email contact. Users can now easily access the source code and reach out for support or inquiries.",
+      "Category Sections with Headers and Icons: Each category section in the prompt library now features a header with an icon, providing a more visually appealing and organized layout. This enhancement improves navigation and helps users quickly identify different categories of prompts.",
+      "Scroll Category Indicator: Implemented a scroll category indicator that highlights the current category as users scroll through the prompt library. This feature enhances user experience by providing visual feedback on their location within the library, making it easier to navigate between categories.",
+      "Smart Display Logic for Scroll Category Indicator: The scroll category indicator now intelligently hides when the user is at the top of the page or when the 'All' category is selected. This ensures that the indicator only appears when relevant, reducing visual clutter and improving overall usability.",
+      "Responsive Design Enhancements: The prompt library has undergone further responsive design improvements, ensuring that the layout and functionality adapt seamlessly across various devices and screen sizes. This includes better handling of mobile views, touch interactions, and overall accessibility.",
+      "Updated Prompt Card Design: The design of individual prompt cards has been refined to provide a cleaner and more modern look. This includes adjustments to spacing, typography, and interactive elements, enhancing the overall aesthetic and usability of the prompt cards.",
+      "Enhanced the security vulnerabilities and improved the overall security posture of the application. This includes implementing best practices for data handling, authentication, and authorization, ensuring that user data is protected and the application remains secure against potential threats.",
+    ],
   },
   {
     version: "1.3.0",
@@ -87,7 +94,11 @@ const footerLinks = {
 
 const socialLinks = [
   // { icon: Tiktok, href: "#", label: "Tiktok" },
-  { icon: LuGithub, href: "https://github.com/Kyl67899/PromptLibrary", label: "GitHub" },
+  {
+    icon: LuGithub,
+    href: "https://www.github.com/promptlibrary",
+    label: "GitHub",
+  },
   { icon: Mail, href: "mailto:shuttle876@gmail.com", label: "Email" },
 ];
 
@@ -150,7 +161,9 @@ function ChangelogDialog() {
                   <p className="mb-2 text-sm text-muted-foreground">
                     {item.date} · v{item.version}
                   </p>
-                  <p className="text-sm text-foreground/80">{item.description}</p>
+                  <p className="text-sm text-foreground/80">
+                    {item.description}
+                  </p>
                 </div>
               </div>
             </div>
@@ -167,7 +180,7 @@ export function SaaSFooter() {
 
   const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!email.trim()) {
       toast.error("Please enter your email address");
       return;
@@ -218,8 +231,8 @@ export function SaaSFooter() {
               </span>
             </Link>
             <p className="mt-4 text-sm text-muted-foreground">
-              A curated collection of UI prompts for vibe coding. Build beautiful
-              interfaces faster with AI-powered tools.
+              A curated collection of UI prompts for vibe coding. Build
+              beautiful interfaces faster with AI-powered tools.
             </p>
 
             {/* Newsletter */}
@@ -227,10 +240,7 @@ export function SaaSFooter() {
               <p className="mb-2 text-sm font-medium text-foreground">
                 Subscribe to updates
               </p>
-              <form
-                onSubmit={handleNewsletterSubmit}
-                className="flex gap-2"
-              >
+              <form onSubmit={handleNewsletterSubmit} className="flex gap-2">
                 <input
                   type="email"
                   value={email}
@@ -304,7 +314,9 @@ export function SaaSFooter() {
               </ul>
             </div>
             <div>
-              <h3 className="mb-3 text-sm font-semibold text-foreground">Legal</h3>
+              <h3 className="mb-3 text-sm font-semibold text-foreground">
+                Legal
+              </h3>
               <ul className="space-y-2">
                 {footerLinks.legal.map((link) => (
                   <li key={link.label}>
@@ -327,7 +339,8 @@ export function SaaSFooter() {
         <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
           <div className="flex flex-wrap items-center gap-4">
             <p className="text-sm text-muted-foreground">
-              &copy; {new Date().getFullYear()} Prompt Library. All rights reserved.
+              &copy; {new Date().getFullYear()} Prompt Library. All rights
+              reserved.
             </p>
             <ChangelogDialog />
           </div>

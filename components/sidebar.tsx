@@ -101,21 +101,23 @@ export function Sidebar({
                     if (window.innerWidth < 1024) onToggle();
                   }}
                   className={cn(
-                    "flex w-full items-center justify-between rounded-lg px-3 py-2.5 text-sm font-medium transition-colors",
+                    "flex w-full items-center justify-between rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-200 group",
                     selectedCategory === category.id
-                      ? "bg-sidebar-accent text-sidebar-accent-foreground"
-                      : "text-sidebar-foreground/70 hover:bg-sidebar-accent/50 hover:text-sidebar-foreground"
+                      ? "bg-sidebar-accent text-sidebar-accent-foreground shadow-sm"
+                      : "text-sidebar-foreground/70 hover:bg-sidebar-accent/50 hover:text-sidebar-foreground hover:translate-x-1"
                   )}
                 >
                   <div className="flex items-center gap-3">
-                    {iconMap[category.icon]}
+                    <span className="transition-transform group-hover:scale-110 duration-200">
+                      {iconMap[category.icon]}
+                    </span>
                     <span>{category.label}</span>
                   </div>
                   <span
                     className={cn(
-                      "text-xs tabular-nums",
+                      "text-xs tabular-nums font-semibold px-1.5 py-0.5 rounded",
                       selectedCategory === category.id
-                        ? "text-sidebar-accent-foreground/70"
+                        ? "bg-sidebar-accent-foreground/20 text-sidebar-accent-foreground"
                         : "text-sidebar-foreground/50"
                     )}
                   >
@@ -128,14 +130,21 @@ export function Sidebar({
 
           {/* Footer */}
           <div className="border-t border-sidebar-border p-4 space-y-3">
-            <p className="text-xs text-sidebar-foreground/50">
-              {promptCounts.all} prompts available
-            </p>
+            <div className="flex items-center justify-between px-1">
+              <p className="text-xs font-semibold text-sidebar-foreground/70">
+                Total
+              </p>
+              <p className="text-xs font-bold text-sidebar-accent">
+                {promptCounts.all}
+              </p>
+            </div>
             <Link
               href="/admin"
-              className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground/60 hover:bg-sidebar-accent/50 hover:text-sidebar-foreground transition-colors"
+              className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground/60 hover:bg-sidebar-accent/50 hover:text-sidebar-foreground transition-all duration-200 group"
             >
-              <ShieldCheck className="h-4 w-4" />
+              <span className="transition-transform group-hover:rotate-12 duration-200">
+                <ShieldCheck className="h-4 w-4" />
+              </span>
               <span>Admin Dashboard</span>
             </Link>
           </div>

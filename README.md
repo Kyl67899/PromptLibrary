@@ -93,7 +93,12 @@ Found a bug or have a suggestion? Please [open an issue](https://github.com/Kyl6
 ---
 
 ## ✨ Recent Updates
-
+- Added links to the footer
+- Category Sections with Headers
+- Scroll Category Indicator
+- Smart Display Logic
+- Responsive Design
+- Updated Security Vulnerabilities
 
 ---
 
