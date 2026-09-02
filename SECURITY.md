@@ -1,20 +1,43 @@
-# Security Policy
+# Security Vulnerabilities
 
-## Supported Versions
+This document explains how to report security vulnerabilities for `PromptLibrary` safely and responsibly.
 
-Use this section to tell people about which versions of your project are
-currently being supported with security updates.
+## Reporting a vulnerability
 
-| Version | Supported          |
-| ------- | ------------------ |
-| 3.0.x   | :white_check_mark: |
-| 2.x.x   | :white_check_mark: |
-| < 1.0.0 | :x:                |
+If you find a security issue, please do not publish it publicly before it has been reviewed and fixed.
 
-## Reporting a Vulnerability
+Preferred reporting methods:
+- Create a private GitHub issue with the title `Security vulnerability report` and notify a maintainer.
+- Use GitHub Security Advisories if the repository has it enabled.
 
-Use this section to tell people how to report a vulnerability.
+Include the following information when reporting:
+- A short description of the issue.
+- The affected version(s) of the project.
+- Steps to reproduce the issue.
+- Expected and actual behavior.
+- Any proof-of-concept or exploit details necessary for reproduction.
 
-Tell them where to go, how often they can expect to get an update on a
-reported vulnerability, what to expect if the vulnerability is accepted or
-declined, etc.
+## Response process
+
+1. The maintainers will acknowledge receipt of the report as soon as possible.
+2. The issue will be reviewed and triaged.
+3. If the report is confirmed, a fix will be prepared and released.
+4. Disclosure details will be shared once a fix is available.
+
+## What to expect
+
+- A maintainer should respond within a few business days.
+- Sensitive reports should remain private until a fix is published.
+- The repository team may ask for additional information to confirm the issue.
+
+## Supported versions
+
+This repository follows the supported version policy in `SECURITY.md`.
+
+## Disclosure policy
+
+The goal is to resolve security issues responsibly. Do not disclose the vulnerability publicly before it is fixed and coordinated with the maintainers.
+
+## Acknowledgements
+
+Thank you for helping keep `PromptLibrary` secure. Your report makes the project safer for everyone.

@@ -21,14 +21,14 @@ const footerLinks = {
   product: [
     { label: "Features", href: "/features" },
     { label: "Pricing", href: "/pricing" },
-    { label: "Changelog", href: "#changelog" },
+    { label: "Changelog", href: "/changelog" },
     { label: "Documentation", href: "/docs" },
   ],
   company: [
     { label: "About", href: "/about" },
     { label: "Blog", href: "#" },
     { label: "Careers", href: "#" },
-    { label: "Contact", href: "/help" },
+    { label: "Contact", href: "/contact" },
   ],
   resources: [
     { label: "Community", href: "/community" },

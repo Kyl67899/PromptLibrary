@@ -52,7 +52,7 @@ export const changelog = [
     date: "May 20, 2026",
     type: "release" as const,
     title: "Initial Launch",
-    description: [
+x    description: [
       "Launch of Prompt Library with 20+ UI prompts across 12 categories",
       "Includes search and filtering",
       "Responsive design",
