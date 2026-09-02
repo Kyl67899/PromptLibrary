@@ -20,31 +20,42 @@ export const changelog = [
     date: "May 31, 2026",
     type: "feature" as const,
     title: "IDE Integration",
-    description:
-      "Share prompts directly to v0, Claude, GitHub Copilot, and Perplexity. Copy prompts as formatted markdown.",
+    description: [
+      "Share prompts directly to v0, Claude, GitHub Copilot, and Perplexity",
+      "Copy prompts as formatted markdown",
+    ],
   },
   {
     version: "1.2.0",
     date: "May 28, 2026",
     type: "feature" as const,
     title: "Admin Dashboard",
-    description:
-      "Full CRUD management for prompts. Create, edit, and delete prompts in real-time from the admin panel.",
+    description: [
+      "Full CRUD management for prompts",
+      "Create, edit, and delete prompts in real-time from the admin panel",
+    ],
   },
   {
     version: "1.1.0",
     date: "May 25, 2026",
     type: "improvement" as const,
     title: "Enhanced Security",
-    description:
-      "Added rate limiting, input sanitization, XSS protection, and security headers for all API endpoints.",
+    description: [
+      "Added rate limiting",
+      "Input sanitization",
+      "XSS protection",
+      "Security headers for all API endpoints",
+    ],
   },
   {
     version: "1.0.0",
     date: "May 20, 2026",
     type: "release" as const,
     title: "Initial Launch",
-    description:
-      "Launch of Prompt Library with 20+ UI prompts across 12 categories. Includes search, filtering, and responsive design.",
+    description: [
+      "Launch of Prompt Library with 20+ UI prompts across 12 categories",
+      "Includes search and filtering",
+      "Responsive design",
+    ],
   },
 ];

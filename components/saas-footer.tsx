@@ -15,7 +15,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { LuGithub } from "react-icons/lu";
-import changelog  from "@/data/changelog.ts";
+import { changelog } from "@/lib/changelog";
 
 const footerLinks = {
   product: [
@@ -61,7 +61,7 @@ function ChangelogDialog() {
           <Sparkles className="size-4" />
           <span>Changelog</span>
           <Badge variant="secondary" className="ml-1">
-            v1.3.0
+            {changelog[0].version}
           </Badge>
         </Button>
       </DialogTrigger>
@@ -112,9 +112,20 @@ function ChangelogDialog() {
                   <p className="mb-2 text-sm text-muted-foreground">
                     {item.date} · v{item.version}
                   </p>
-                  <p className="text-sm text-foreground/80">
-                    {item.description}
-                  </p>
+                  {Array.isArray(item.description) ? (
+                    <ul className="space-y-1 text-sm text-foreground/80">
+                      {item.description.map((desc, idx) => (
+                        <li key={idx} className="flex gap-2">
+                          <span className="mt-1 shrink-0">•</span>
+                          <span>{desc}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p className="text-sm text-foreground/80">
+                      {item.description}
+                    </p>
+                  )}
                 </div>
               </div>
             </div>
