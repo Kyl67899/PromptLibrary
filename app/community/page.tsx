@@ -1,3 +1,6 @@
+// TODO: make this page dynamic and fetch real discussions from the database, also add pagination and sorting options.
+// TODO: Make this a full fledged forum with categories, tags, user profiles, and more. This is just a static mockup for now to get the design right before implementing the backend.
+
 "use client";
 
 import { useState } from "react";

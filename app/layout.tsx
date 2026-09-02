@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Analytics } from '@vercel/analytics/next'
 import { Toaster } from '@/components/ui/sonner'
 import './globals.css'
+import { PageHeader } from '@/components/page-header'
 
 export const metadata: Metadata = {
   title: 'Prompt Library - Copy UI Prompts',
@@ -33,6 +34,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="bg-background">
       <body className="font-sans antialiased">
+        {/* <PageHeader /> */}
         {children}
         <Toaster />
         {process.env.NODE_ENV === 'production' && <Analytics />}
