@@ -1,6 +1,5 @@
 Sep 1, 2026 · v1.4
 feature · Security 
-- Categorized prompt display with sidebar
 - Added links to the footer
 - Category Sections with Headers
     - Each category displays as its own section
@@ -22,6 +21,8 @@ feature · Security
     - Desktop: 3-column grid, sidebar visible
     - Tablet: 2-column grid, adjusted layout
     - Mobile: 1-column grid, responsive sections
+- Updated Security Vulnerabilities
+
 
 IDE Integration
 feature
