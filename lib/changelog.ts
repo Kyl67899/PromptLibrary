@@ -8,6 +8,14 @@ export interface ChangelogEntry {
 
 export const changelogData: ChangelogEntry[] = [
   {
+    version: "1.5.1",
+    date: "Oct. 16, 2026",
+    type: "improvement" as const,
+    title: "Fixed bugs and performance optimizations",
+    description:
+      "Resolved several minor bugs and improved overall performance and stability of the application.",
+  },
+  {
     version: "1.4.0",
     date: "June 6, 2026",
     type: "improvement" as const,
