@@ -4,8 +4,8 @@ import { Toaster } from '@/components/ui/sonner'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Prompt Library - Copy UI Prompts',
-  description: 'A curated library of prompts for building UI components. Copy and use prompts for forms, auth, navbars, testimonials, and more.',
+  title: 'Prompt Library — One library. More possibilities.',
+  description: 'A curated library of thoughtful prompts and interface starting points for your next idea.'
 }
 
 export default function RootLayout({

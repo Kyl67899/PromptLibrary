@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import { Resend } from 'resend'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null
 
 // Reuse same rate-limiter configuration as contact route
 const RATE_LIMIT_WINDOW_MS = 60 * 60 * 1000 // 1 hour
@@ -38,6 +38,7 @@ export async function POST(req: Request) {
     }
 
     // Send suggestion email via Resend
+    if (!resend) return NextResponse.json({ error: 'Email service is not configured' }, { status: 503 })
     await resend.emails.send({
       from: 'PromptLibrary <support@promptlibrary.dev>', // replace with your domain
       to: 'shuttle876@gmail.com', // your receiving email

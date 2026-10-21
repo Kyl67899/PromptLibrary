@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import { SubmitPromptDialog } from "@/components/submit-prompt-dialog";
 import useSWR from "swr";
 import { Sidebar } from "@/components/sidebar";
 import { SearchBar } from "@/components/search-bar";
@@ -99,7 +100,7 @@ export default function PromptLibrary() {
                   {filteredPrompts.length !== 1 ? "s" : ""} available
                 </p>
               </div>
-              <SearchBar value={searchQuery} onChange={handleSearchChange} />
+              <div className="flex items-center gap-3"><SubmitPromptDialog /><SearchBar value={searchQuery} onChange={handleSearchChange} /></div>
             </div>
           </header>
 

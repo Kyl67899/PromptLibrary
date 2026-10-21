@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import { Resend } from 'resend'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null
 
 // Simple in-memory rate limiter (per-IP).
 // Note: In serverless deployments this is ephemeral. Consider Redis or a persistent store for production.
@@ -39,6 +39,7 @@ export async function POST(req: Request) {
       rateLimitMap.set(ip, entry)
     }
 
+    if (!resend) return NextResponse.json({ error: 'Email service is not configured' }, { status: 503 })
     await resend.emails.send({
       from: 'PromptLibrary <support@promptlibrary.dev>', // replace with your domain
       to: 'shuttle876@gmail.com', // your receiving email
